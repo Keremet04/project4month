@@ -127,9 +127,10 @@
                 <outlet property="star" destination="HHc-0A-cv6" id="uwh-6t-7oA"/>
                 <outlet property="subName" destination="P0L-aa-InQ" id="Mgq-W2-CqD"/>
                 <outlet property="tableImage" destination="RGR-Va-mli" id="1hW-Mr-ntY"/>
+                <outlet property="thirdCustomView" destination="8Jk-H1-35r" id="eHr-Cu-ove"/>
                 <outlet property="timeTable" destination="A1f-KW-lNZ" id="CJk-j7-Pha"/>
             </connections>
-            <point key="canvasLocation" x="335.87786259541986" y="314.08450704225356"/>
+            <point key="canvasLocation" x="163" y="310"/>
         </tableViewCell>
     </objects>
     <resources>

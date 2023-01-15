@@ -9,15 +9,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="n8r-L4-mIM" customClass="FirstCollectionViewCell" customModule="hw1" customModuleProvider="target" colorLabel="IBBuiltInLabel-Yellow">
-            <rect key="frame" x="0.0" y="0.0" width="103" height="36"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="n8r-L4-mIM" customClass="ServiceCollectionViewCell" customModule="hw1" customModuleProvider="target" colorLabel="IBBuiltInLabel-Yellow">
+            <rect key="frame" x="0.0" y="0.0" width="121" height="36"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dJf-6w-ur9">
-                <rect key="frame" x="0.0" y="0.0" width="103" height="36"/>
+                <rect key="frame" x="0.0" y="0.0" width="121" height="36"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59w-h8-ee1">
-                        <rect key="frame" x="43.666666666666657" y="10" width="49.333333333333343" height="16"/>
+                        <rect key="frame" x="61.666666666666657" y="10" width="49.333333333333343" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -41,17 +41,18 @@
                     <constraint firstItem="C5C-zW-mgr" firstAttribute="top" secondItem="dJf-6w-ur9" secondAttribute="top" constant="7" id="n1Y-Ui-eBl"/>
                 </constraints>
             </collectionViewCellContentView>
-            <size key="customSize" width="184" height="80"/>
+            <size key="customSize" width="202" height="80"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="borfer.layerColor">
                     <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="firstCustom" destination="dJf-6w-ur9" id="Erv-tx-ImG"/>
                 <outlet property="imageView" destination="C5C-zW-mgr" id="xBr-Cv-t6C"/>
                 <outlet property="nameLabel" destination="59w-h8-ee1" id="ixU-43-dZ0"/>
             </connections>
-            <point key="canvasLocation" x="-235.87786259541983" y="11.971830985915494"/>
+            <point key="canvasLocation" x="-249.61832061068702" y="11.971830985915494"/>
         </collectionViewCell>
     </objects>
     <resources>

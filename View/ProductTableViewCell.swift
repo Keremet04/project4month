@@ -19,18 +19,44 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var deliverytable: UILabel!
     @IBOutlet weak var subName: UILabel!
     @IBOutlet weak var score: UILabel!
+    @IBOutlet weak var thirdCustomView: UIView!
+    
+    weak var delegate: ProductCellDelegate?
+    private var product: ProductNodel?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        productImgGestureRecognizer()
+    }
     
     func display3(item: ProductNodel) {
         
-    tableImage.image = item.productImageIcon
-    mainLable.text = item.productName
-    circle.image = item.circle
-    timeTable.text = item.openClose
-    star.image = item.star
-    location.text = item.location
-    deliverytable.text = item.delivery
-    subName.text = item.subName
-    score.text = item.score
+        tableImage.image = UIImage(named: item.productImageIcon)
+        mainLable.text = item.productName
+        circle.image = UIImage(named: item.circle)
+        timeTable.text = item.openClose
+        timeTable.textColor = isSelected ? UIColor.white : UIColor.green
+        star.image = UIImage(named: item.star)
+        location.text = item.location
+        deliverytable.text = item.delivery
+        subName.text = item.subName
+        score.text = item.score
+        product = item
         
+    }
+    
+    func productImgGestureRecognizer() {
+        let navigateProductImageTap =
+        UITapGestureRecognizer(target: self, action: #selector(navigateToDetailsViewController))
+        tableImage.isUserInteractionEnabled = true
+        tableImage.addGestureRecognizer(navigateProductImageTap)
+    }
+    
+    @objc
+    private func navigateToDetailsViewController() {
+        guard let product = product else {
+            return
+        }
+        delegate?.switchToTheImage(UIImage(named: product.productImageIcon)!)
     }
 }

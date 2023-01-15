@@ -13,40 +13,106 @@ class FirstViewController: UIViewController{
     @IBOutlet private weak var secondcollectionView: UICollectionView!
     @IBOutlet private weak var productTableView: UITableView!
   
-    private let mockData: [CustomModel] = [
-        .init(imageIconView: UIImage(systemName: "cart.fill")!, lable: "Delivery", isSelected: true),
-        .init(imageIconView: UIImage(systemName: "car")!, lable: "Pickup", isSelected: true),
-        .init(imageIconView: UIImage(systemName: "powersleep")!, lable: "Catering", isSelected: true),
-        .init(imageIconView: UIImage(systemName: "play")!, lable: "Curbside", isSelected: true)
-        ]
+//    private let mockData: [ServiceModel] = [
+//        .init(imageIconView: UIImage(systemName: "cart.fill")!, lable: "Delivery", isSelected: true),
+//        .init(imageIconView: UIImage(systemName: "car")!, lable: "Pickup", isSelected: true),
+//        .init(imageIconView: UIImage(systemName: "powersleep")!, lable: "Catering", isSelected: true),
+//        .init(imageIconView: UIImage(systemName: "play")!, lable: "Curbside", isSelected: true)
+//        ]
+//
+//    private let mockData2:  [OptionsModel] = [
+//        .init(imagesecond: UIImage(named: "pic6")!, lable2: "Takeaways"),
+//        .init(imagesecond: UIImage(named: "pic2 1")!, lable2: "Grocery"),
+//        .init(imagesecond: UIImage(named: "pic3")!, lable2: "Convenience"),
+//        .init(imagesecond: UIImage(named: "pic4")!, lable2: "Pharmacy")
+//    ]
+//
+//    private let productsArray: [ProductNodel] = [
+//        .init(productImageIcon:"photo2",
+//            score: "4.5", productName: "Vegetarian Pizza",
+//            subName: "Italian | Burgers", openClose: "OPEN",
+//            delivery: "Delivery: FREE | Minimun: 10$",
+//            location: "1.5 km away", circle: UIImage(named: "circle")!,
+//            star: UIImage(named: "star")!),
+//        .init(productImageIcon: "photo1",
+//            score: "4.6", productName: "Burger Craze",
+//            subName: "American | Burgers", openClose: "OPEN",
+//            delivery: "Delivery: FREE | Minimun: 10$",
+//            location: "1.5 km away", circle: UIImage(named: "circle")!,
+//            star: UIImage(named: "star")!)
+//    ]
     
-    private let mockData2:  [SecondModel] = [
-        .init(imagesecond: UIImage(named: "pic6")!, lable2: "Takeaways"),
-        .init(imagesecond: UIImage(named: "pic2 1")!, lable2: "Grocery"),
-        .init(imagesecond: UIImage(named: "pic3")!, lable2: "Convenience"),
-        .init(imagesecond: UIImage(named: "pic4")!, lable2: "Pharmacy")
-    ]
+    private var serviceArray = [ServiceModel] ()
+    private var optionsArray = [OptionsModel] ()
+    private var productArray = [ProductNodel] ()
     
-    private let productsArray: [ProductNodel] = [
-        .init(productImageIcon: UIImage(named: "photo2")!,
-            score: "4.5", productName: "Vegetarian Pizza",
-            subName: "Italian | Burgers", openClose: "OPEN",
-            delivery: "Delivery: FREE | Minimun: 10$",
-            location: "1.5 km away", circle: UIImage(named: "circle")!,
-            star: UIImage(named: "star")!),
-        .init(productImageIcon: UIImage(named: "photo1")!,
-            score: "4.6", productName: "Burger Craze",
-            subName: "American | Burgers", openClose: "OPEN",
-            delivery: "Delivery: FREE | Minimun: 10$",
-            location: "1.5 km away", circle: UIImage(named: "circle")!,
-            star: UIImage(named: "star")!)
-    ]
     
-   override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         confifureCollectionView()
         secondconfifureCollectionView()
         configureTableView()
+        
+        serviceArray = ServiceCategory.shared.parse(serviceJSON)
+        optionsArray = ProductCategory.shared.parse(productJSON)
+        productArray = Product.shared.parse(productJSON)
+        
+    }
+    
+    class ServiceCategory {
+        
+        static let shared = ServiceCategory()
+        
+        func parse(_ json: String) -> [ServiceModel] {
+            var serviceCategory = [ServiceModel] ()
+            let serviceCategoryData = Data(serviceJSON.utf8)
+            let decoder = JSONDecoder()
+            
+            do {
+                let convertedData = try decoder.decode([ServiceModel].self, from: serviceCategoryData)
+                serviceCategory = convertedData
+            } catch {
+                print("Error is: \(error.localizedDescription)")
+            }
+            return serviceCategory
+        }
+    }
+    
+    class ProductCategory {
+        
+        static let shared = ProductCategory()
+        
+        func parse(_ json: String) -> [OptionsModel] {
+            var productCategory = [OptionsModel] ()
+            let productCategoryData = Data(productJSON.utf8)
+            let decoder = JSONDecoder()
+            
+            do {
+                let convertedData = try decoder.decode([OptionsModel].self, from: productCategoryData)
+                productCategory = convertedData
+            } catch {
+                print("Error is: \(error.localizedDescription)")
+            }
+            return productCategory
+        }
+    }
+    
+    class Product {
+        
+        static let shared = Product()
+        func parse(_ json: String) -> [ProductNodel] {
+            var product = [ProductNodel]()
+            let productData = Data(productJSON.utf8)
+            let decoder = JSONDecoder()
+            
+            do {
+                let convertedData = try decoder.decode([ProductNodel].self, from: productData)
+                product = convertedData
+            } catch {
+                print("Error is: \(error.localizedDescription)")
+            }
+            return product
+        }
     }
     
     private func confifureCollectionView() {
@@ -54,8 +120,8 @@ class FirstViewController: UIViewController{
         firstcollectionView.delegate = self
         firstcollectionView.register(
             UINib(
-                nibName: String(describing: FirstCollectionViewCell.self),
-                bundle: nil), forCellWithReuseIdentifier: FirstCollectionViewCell.reusedId)
+                nibName: String(describing: ServiceCollectionViewCell.self),
+                bundle: nil), forCellWithReuseIdentifier: ServiceCollectionViewCell.reusedId)
     }
     
     private func secondconfifureCollectionView() {
@@ -63,8 +129,8 @@ class FirstViewController: UIViewController{
         secondcollectionView.delegate = self
         secondcollectionView.register(
             UINib(
-                nibName: String(describing: SecondCollectionViewCell.self),
-                bundle: nil), forCellWithReuseIdentifier: SecondCollectionViewCell.reuseId2)
+                nibName: String(describing: OptionsCollectionViewCell.self),
+                bundle: nil), forCellWithReuseIdentifier: OptionsCollectionViewCell.reuseId2)
     }
     
     private func configureTableView() {
@@ -82,11 +148,10 @@ extension FirstViewController: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int
     ) -> Int {
         if collectionView == firstcollectionView{
-            
-            return mockData.count
+            return serviceArray.count
         }else{
-            return mockData2.count
-            }
+            return productArray.count
+        }
     }
     
     func collectionView(
@@ -95,17 +160,27 @@ extension FirstViewController: UICollectionViewDataSource {
         ) -> UICollectionViewCell {
             if collectionView == firstcollectionView {
                 let cell = firstcollectionView.dequeueReusableCell(
-                    withReuseIdentifier: "FirstCollectionViewCell",
-                    for: indexPath) as! FirstCollectionViewCell
-                let data = mockData[indexPath.row]
-                cell.display(item: data)
+                    withReuseIdentifier: ServiceCollectionViewCell.reusedId,
+                    for: indexPath) as! ServiceCollectionViewCell
+                let serviceModel = serviceArray[indexPath.item]
+                cell.display(item: serviceModel)
+                if !serviceArray[indexPath.row].isSelected {
+                    cell.backgroundColor = .white
+                } else {
+                    cell.backgroundColor = .systemGreen
+                }
                 return cell
             }else{
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: "SecondCollectionViewCell",
-                    for: indexPath) as! SecondCollectionViewCell
-                let data = mockData2[indexPath.row]
-                cell.display2(item: data)
+                    withReuseIdentifier: OptionsCollectionViewCell.reuseId2,
+                    for: indexPath) as! OptionsCollectionViewCell
+                let OptionsModel = optionsArray[indexPath.item]
+                cell.display2(item: OptionsModel)
+                if !optionsArray[indexPath.row].isSelected {
+                    cell.backgroundColor = .white
+                } else {
+                    cell.backgroundColor = .systemGreen
+                }
                 return cell
         }
     }
@@ -118,29 +193,58 @@ extension FirstViewController: UICollectionViewDelegateFlowLayout {
             layout collectionViewLayout: UICollectionViewLayout,
           sizeForItemAt indexPath: IndexPath
       ) -> CGSize {
-          if collectionView == firstcollectionView {
-              return CGSize(width: 100, height: 128)
-          } else {
+//          if collectionView == firstcollectionView {
+//              return CGSize(width: 100, height: 128)
+//          } else {
               return CGSize(width: 100, height: 130)
           }
-      }
-  }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if firstcollectionView == firstcollectionView {
+            if !serviceArray[indexPath.row].isSelected {
+                for item in 0..<serviceArray.count {
+                    serviceArray[item].isSelected = false
+                }
+                serviceArray[indexPath.row].isSelected = true
+                firstcollectionView.reloadData()
+            } else {
+                serviceArray[indexPath.row].isSelected = false
+                firstcollectionView.reloadData()
+            }
+        } else {
+            if !optionsArray[indexPath.row].isSelected {
+                for item in 0..<optionsArray.count {
+                    optionsArray[item].isSelected = false
+                }
+                optionsArray[indexPath.row].isSelected = true
+                secondcollectionView.reloadData()
+            } else {
+                optionsArray[indexPath.row].isSelected = false
+                secondcollectionView.reloadData()
+            }
+        }
+    }
+}
+
+//  }
 
 extension FirstViewController: UITableViewDataSource {
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return productsArray.count
+        return productArray.count
     }
     
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_
+    tableView: UITableView,
+            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: "ProductTableViewCell")
+            withIdentifier: ProductTableViewCell.reuseID3, for: indexPath)
         as! ProductTableViewCell
-        let data = productsArray[indexPath.row]
+        let data = productArray[indexPath.row]
         cell.display3(item: data)
+        cell.delegate = self
         return cell
     }
 }
@@ -152,8 +256,16 @@ extension FirstViewController: UITableViewDelegate {
     -> CGFloat {
         return 300
     }
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
-        
-    }
+    
 }
+
+    extension FirstViewController: ProductCellDelegate {
+        func switchToTheImage(_ img: UIImage) {
+            guard let detailsViewConttoller = storyboard?.instantiateViewController(withIdentifier: ImageViewController.identifier) as? ImageViewController else {
+                return
+            }
+            detailsViewConttoller.foodImagePhoto = img
+            navigationController?.pushViewController(detailsViewConttoller, animated: true)
+        }
+    }
+
