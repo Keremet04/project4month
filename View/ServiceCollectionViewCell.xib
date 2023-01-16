@@ -22,7 +22,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="powersleep" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="C5C-zW-mgr">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="C5C-zW-mgr">
                         <rect key="frame" x="9" y="8.6666666666666643" width="23" height="20"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -56,6 +56,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="powersleep" catalog="system" width="125" height="128"/>
+        <image name="cart" catalog="system" width="128" height="102"/>
     </resources>
 </document>

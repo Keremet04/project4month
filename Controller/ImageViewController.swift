@@ -9,10 +9,9 @@ import UIKit
 
 class ImageViewController: UIViewController {
     
-    static var identifier = String(describing: ImageViewController.self)
-    
     @IBOutlet weak var foodImage: UIImageView!
     
+    static var identifier = String(describing: ImageViewController.self)
     var foodImagePhoto = UIImage()
     
     override func viewDidLoad() {

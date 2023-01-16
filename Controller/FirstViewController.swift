@@ -12,40 +12,10 @@ class FirstViewController: UIViewController{
     @IBOutlet private weak var firstcollectionView: UICollectionView!
     @IBOutlet private weak var secondcollectionView: UICollectionView!
     @IBOutlet private weak var productTableView: UITableView!
-  
-//    private let mockData: [ServiceModel] = [
-//        .init(imageIconView: UIImage(systemName: "cart.fill")!, lable: "Delivery", isSelected: true),
-//        .init(imageIconView: UIImage(systemName: "car")!, lable: "Pickup", isSelected: true),
-//        .init(imageIconView: UIImage(systemName: "powersleep")!, lable: "Catering", isSelected: true),
-//        .init(imageIconView: UIImage(systemName: "play")!, lable: "Curbside", isSelected: true)
-//        ]
-//
-//    private let mockData2:  [OptionsModel] = [
-//        .init(imagesecond: UIImage(named: "pic6")!, lable2: "Takeaways"),
-//        .init(imagesecond: UIImage(named: "pic2 1")!, lable2: "Grocery"),
-//        .init(imagesecond: UIImage(named: "pic3")!, lable2: "Convenience"),
-//        .init(imagesecond: UIImage(named: "pic4")!, lable2: "Pharmacy")
-//    ]
-//
-//    private let productsArray: [ProductNodel] = [
-//        .init(productImageIcon:"photo2",
-//            score: "4.5", productName: "Vegetarian Pizza",
-//            subName: "Italian | Burgers", openClose: "OPEN",
-//            delivery: "Delivery: FREE | Minimun: 10$",
-//            location: "1.5 km away", circle: UIImage(named: "circle")!,
-//            star: UIImage(named: "star")!),
-//        .init(productImageIcon: "photo1",
-//            score: "4.6", productName: "Burger Craze",
-//            subName: "American | Burgers", openClose: "OPEN",
-//            delivery: "Delivery: FREE | Minimun: 10$",
-//            location: "1.5 km away", circle: UIImage(named: "circle")!,
-//            star: UIImage(named: "star")!)
-//    ]
     
     private var serviceArray = [ServiceModel] ()
     private var optionsArray = [OptionsModel] ()
     private var productArray = [ProductNodel] ()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,16 +24,15 @@ class FirstViewController: UIViewController{
         configureTableView()
         
         serviceArray = ServiceCategory.shared.parse(serviceJSON)
-        optionsArray = ProductCategory.shared.parse(productJSON)
+        optionsArray = OptionsCategory.shared.parse(productJSON)
         productArray = Product.shared.parse(productJSON)
         
     }
     
     class ServiceCategory {
         
-        static let shared = ServiceCategory()
-        
-        func parse(_ json: String) -> [ServiceModel] {
+    static let shared = ServiceCategory()
+    func parse(_ json: String) -> [ServiceModel] {
             var serviceCategory = [ServiceModel] ()
             let serviceCategoryData = Data(serviceJSON.utf8)
             let decoder = JSONDecoder()
@@ -78,13 +47,13 @@ class FirstViewController: UIViewController{
         }
     }
     
-    class ProductCategory {
+    class OptionsCategory {
         
-        static let shared = ProductCategory()
+        static let shared = OptionsCategory()
         
         func parse(_ json: String) -> [OptionsModel] {
             var productCategory = [OptionsModel] ()
-            let productCategoryData = Data(productJSON.utf8)
+            let productCategoryData = Data(optionsJSON.utf8)
             let decoder = JSONDecoder()
             
             do {
@@ -150,7 +119,7 @@ extension FirstViewController: UICollectionViewDataSource {
         if collectionView == firstcollectionView{
             return serviceArray.count
         }else{
-            return productArray.count
+            return optionsArray.count
         }
     }
     
@@ -193,9 +162,7 @@ extension FirstViewController: UICollectionViewDelegateFlowLayout {
             layout collectionViewLayout: UICollectionViewLayout,
           sizeForItemAt indexPath: IndexPath
       ) -> CGSize {
-//          if collectionView == firstcollectionView {
-//              return CGSize(width: 100, height: 128)
-//          } else {
+          
               return CGSize(width: 100, height: 130)
           }
     
